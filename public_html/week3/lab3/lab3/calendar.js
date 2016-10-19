@@ -14,6 +14,16 @@ $(document).ready(function(){
         $("#month,#year").change(function(e) {
             showCalendar ($("#month").val(), $("#year").val());
         });
+        
+        $("#yes").on("click", function(){
+           $('div.day').css("background-color", "green");
+        });
+        
+        $("#no").on("click", function(){
+           $('div.day').css("background-color", "red");
+        });
+    
+        
 });
 
 
@@ -31,15 +41,61 @@ function showCalendar (mth, yr) {
     var firstDayOfWeek = d.getDay();
 
     /* this is where you'll generate the grid, for now I will just show first day of week */
-    var str = "<ul>";
-    str += "<li>Number of days in the month: " + numberOfDaysInMonth + "</li>";
-    str += "<li>First day of the week: " + firstDayOfWeek + " (" + daysOfTheWeek[firstDayOfWeek] + ")</li>";
-
-    str += "</ul>";
-      
+   
+    
+    
+    
+    
+    
+    var str = '<div class="row">';
+    var days = 1;
+    
+    for(var i = 1; i <= (numberOfDaysInMonth + firstDayOfWeek); i++){       
+       
+       
+        if(i <= firstDayOfWeek){
+            str += '<div class="day">' +  '</div>';
+            
+        }
+        else {
+            str += '<div class="day">' + days + '</div>';
+            days++;
+        }
+          
+           
+        
+       
+       if(i %7 === 0){
+           str += '</div> <div class="row">';
+       }
+   }
+   
+   str+= '</div>';
     
     $("#results").html(str);
      
+     $( "div.day" ).click(checkDiv);
+                        
+        function checkDiv() {
+          
+          var color = $( this ).css( "background-color" );
+          console.log(color);
+          
+            if(color === 'rgba(0, 0, 0, 0)'){
+          $( this ).css( "background-color", 'green' );
+      
+           }
+           else if (color === 'rgb(0, 128, 0)'){
+               $( this ).css("background-color", 'red');
+           }
+           else if (color === 'rgb(255, 0, 0)'){
+               $( this ).css("background-color", 'rgba(0,0,0,0)');
+           }
+           
+      
+      
+        }
+    
     
     
 }
