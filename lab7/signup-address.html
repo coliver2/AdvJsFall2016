@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <body>
+
+        <h2>Address Sign-Up</h2>
+        <form action="#" method="post">     
+            
+            <p class="usernameError">
+                <label for="fname">First Name</label>
+                <input name="fname" type="text" value="" />
+                <span class="hide">*</span>
+            </p>
+            
+            <p class="usernameError">
+                <label for="lname">Last Name</label>
+                <input name="lname" type="text" value="" />
+                <span class="hide">*</span>
+            </p>
+            
+            <p class="usernameError">
+                <label for="email">Email</label>
+                <input name="email" type="text" value="" />
+                <span class="hide">*</span>
+            </p>
+            
+            <p class="usernameError">
+                <label for="phone">Phone</label>
+                <input name="phone" type="text" value="" />
+                <span class="hide">*</span>
+            </p>
+            
+            <p class="usernameError">
+                <label for="address1">Address 1</label>
+                <input name="address1" type="text" value="" />
+                <span class="hide">*</span>
+            </p>
+            
+            <p class="usernameError">
+                <label for="address2">Address 2 (optional)</label>
+                <input name="address2" type="text" value="" />
+                <span class="hide">*</span>
+            </p>
+            
+            <p class="usernameError">
+                <label for="city">City</label>
+                <input name="city" type="text" value="" />
+                <span class="hide">*</span>
+            </p>
+            
+            <p class="usernameError">
+                <label for ="state">State</label>
+                <input name="state" type="text" value="" />
+                <span class="hide">*</span>
+            </p>
+            
+            <p class="usernameError">
+                <label for="zip">Zip Code</label>
+                <input name="zip" type="text" value="" />
+                <span class="hide">*</span>
+            </p>
+
+            <input type="submit" value="Submit" />
+
+        </form>
+
+        <div id="confirmation"></div>
+
+
+        <script type="text/javascript" src="js/ajax.js"></script>
+        <script type="text/javascript">
+
+            var form = document.querySelector('form');          
+                                           
+            form.addEventListener('submit', checkForm);
+
+            function checkForm(e) {
+                e.preventDefault();
+                
+                var isValid = true;
+                
+
+                var inputs = document.querySelectorAll('input');
+
+                var i = inputs.length;
+
+                var data = '';
+                while (i--) {
+                    
+                    if(inputs[i].value === '' && inputs[i].name !== 'address2'){
+                        isValid = false;
+                        break;
+                    }
+                    
+                    
+                    if (inputs[i].name && inputs[i].name !== 'confirmPassword') {
+                        data += inputs[i].name + '=' + inputs[i].value + '&';
+                    }
+
+                }
+                data = data.slice(0, -1);
+               
+                var url = './api/saveaddress.php';
+                var verb = 'POST';
+                
+                if(isValid){
+                    console.log(data);
+                    window.makeRequestPromise(url, verb, data).then(httpResolve);
+                }else{
+                    console.log('data not submitted');
+                    window.displayMessage('Please enter all necessary information');
+                }
+          }
+
+            function httpResolve(response) {               
+                console.log(response);
+
+                if (response.data.addressSave) {
+                    displayMessage('Sign Up Saved');
+                } else {
+                    displayMessage('Information could not be Saved');
+                }
+            }
+
+            function displayMessage(msg) {
+                window.confirmation.innerHTML = msg;
+            };
+
+
+        </script>
+    </body>
+</html>
