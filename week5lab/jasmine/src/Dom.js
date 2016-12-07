@@ -9,8 +9,6 @@ function getInputBox(selector) {
 
 function getTextDecoration(selector){
     var elem = document.querySelector(selector);
-    if(elem.value === 'underline'){
-        return elem.value;
-    }
+    return elem.value.toString();
     
 }

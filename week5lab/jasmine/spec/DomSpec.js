@@ -51,7 +51,7 @@ function sandboxTextDec(){
 
   beforeEach(function(){
     el = document.createElement('div');
-    el.setAttribute('text-decoration', 'overline');
+    
     el.setAttribute('name', 'txtName');
     el.setAttribute('value', 'abbc123');    
     el.setAttribute('id', 'txtTwo');    
@@ -103,8 +103,8 @@ describe("getElementContent text", function(){
   sandboxTextDec();
 
   it('should match overline', function(){
-      var elemContent = getInputBox('#txtTwo');
-      expect( elemContent ).toBe(false);
+      var elemContent = getTextDecoration('td');
+      expect( elemContent ).toEqual('underline');
    
   });
   
