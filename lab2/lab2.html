@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <input type="text" name="num1"/>
+        <input type="button" value="Generate Grid"/>
+        
+        <div></div>
+        
+        <label id="final"></label>
+        <script type="text/javascript">
+            
+            
+            
+            var inputVal = document.querySelector('input[name="num1"]');
+            var btnVal = document.querySelector('input[type="button"]');
+            
+            btnVal.addEventListener('click', generateGrid);
+            
+            function generateGrid(){
+                
+            var myArray = [];
+            var str = '';
+            var totalNum = 0;
+            var avg = 0;
+            console.log(inputVal.value);
+            str += '<table border="1">';
+            for ( var i = 0; i < inputVal.value; i++){
+                myArray[i] = [];
+                str += '<tr>';
+                for (var j = 0; j < inputVal.value; j++){
+                    myArray[i][j] = randomNumber(1, 100);
+                    
+                    if(myArray[i][j] %3 === 0){
+                    str += '<td style="background-color:red;">';    
+                    }
+                 else if(myArray[i][j] %2 === 0){
+                    str += '<td style="background-color:blue;">';    
+                    }    
+                else{
+                        str += '<td>';
+                    }
+                    
+                    str +=  myArray[i][j] + '</td>';
+                    
+                    totalNum += myArray[i][j];
+                    
+                }
+                str += '</tr>';
+            }
+            str += '</table>';
+            avg = totalNum / (inputVal.value * inputVal.value);
+            document.querySelector('div').innerHTML = str;
+            document.querySelector('#final').innerHTML = 'The average is' + ' ' + avg;
+            
+        }
+        function randomNumber (min, max) {
+
+           return Math.floor (Math.random() * (max - min + 1)) + min;
+
+}
+            </script>
+    </body>
+</html>
